@@ -139,3 +139,7 @@ jhipster:
 # ===================================================================
 
 # application:
+mongodb.encrypt:
+  keys:
+    - version: 1
+      key: hqHKBLV83LpCqzKpf8OvutbCs+O5wX5BPu3btWpEvXA=

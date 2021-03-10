@@ -1,17 +1,20 @@
 package it.eng.decido.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import com.bol.secure.Encrypted;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * The Employee entity.
@@ -30,12 +33,15 @@ public class Employee implements Serializable {
      */
     @ApiModelProperty(value = "The firstname attribute.")
     @Field("first_name")
+    @Encrypted
     private String firstName;
 
     @Field("last_name")
+    @Encrypted
     private String lastName;
 
     @Field("email")
+    @Encrypted
     private String email;
 
     @Field("phone_number")

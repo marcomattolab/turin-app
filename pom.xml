@@ -138,6 +138,13 @@
             <artifactId>mongobee</artifactId>
         </dependency>
 		
+		<!--  https://mongodb.github.io/mongo-java-driver/4.1/driver/tutorials/client-side-encryption/  -->
+		<dependency>
+            <groupId>com.bol</groupId>
+            <artifactId>spring-data-mongodb-encrypt</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+	    
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
