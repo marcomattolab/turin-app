@@ -28,14 +28,12 @@ public class Employee implements Serializable {
     @Id
     private String id;
 
-    /**
-     * The firstname attribute.
-     */
-    @ApiModelProperty(value = "The firstname attribute.")
+    @ApiModelProperty(value = "The firstName attribute encrypted.")
     @Field("first_name")
     @Encrypted
     private String firstName;
 
+    @ApiModelProperty(value = "The lastName attribute encrypted.")
     @Field("last_name")
     @Encrypted
     private String lastName;
@@ -56,7 +54,9 @@ public class Employee implements Serializable {
     @Field("commission_pct")
     private Long commissionPct;
 
+    @ApiModelProperty(value = "The encrypted document attached to the bean.")
     @Field("document")
+    @Encrypted
     private byte[] document;
 
     @Field("document_content_type")
@@ -80,7 +80,6 @@ public class Employee implements Serializable {
     @JsonIgnoreProperties(value = "employees", allowSetters = true)
     private Department department;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
     public String getId() {
         return id;
     }

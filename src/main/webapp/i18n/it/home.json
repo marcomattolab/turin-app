@@ -1,19 +1,19 @@
 {
   "home": {
-    "title": "Benvenuto, Java Hipster!",
+    "title": "Benvenuto, Turin App!",
     "subtitle": "Questa è la tua home page",
     "logged": {
       "message": "Autenticato come \"{{username}}\"."
     },
-    "question": "In caso di domande su JHipster:",
+    "question": "In caso di domande su Turin App:",
     "link": {
-      "homepage": "Homepage JHipster",
-      "stackoverflow": "JHipster su Stack Overflow",
-      "bugtracker": "JHipster tracciamento errori",
-      "chat": "Chat room pubblica di JHipster",
-      "follow": "segui @jhipster su Twitter"
+      "homepage": "Homepage Turin App",
+      "stackoverflow": "Turin App su Stack Overflow",
+      "bugtracker": "Turin App tracciamento errori",
+      "chat": "Chat room pubblica di Turin App",
+      "follow": "segui @decido su Twitter"
     },
-    "like": "Se ti piace JHipster, non dimenticarti di darci una stella su",
+    "like": "Se ti piace Turin App, non dimenticarti di darci una stella su",
     "github": "GitHub"
   }
 }
