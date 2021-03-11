@@ -24,9 +24,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class DepartmentResource {
-
     private final Logger log = LoggerFactory.getLogger(DepartmentResource.class);
-
     private static final String ENTITY_NAME = "department";
 
     @Value("${jhipster.clientApp.name}")

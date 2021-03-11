@@ -23,9 +23,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class LocationResource {
-
     private final Logger log = LoggerFactory.getLogger(LocationResource.class);
-
     private static final String ENTITY_NAME = "location";
 
     @Value("${jhipster.clientApp.name}")

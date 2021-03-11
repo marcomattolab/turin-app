@@ -1,21 +1,28 @@
 package it.eng.decido.web.rest;
 
-import it.eng.decido.domain.Task;
-import it.eng.decido.service.TaskService;
-import it.eng.decido.web.rest.errors.BadRequestAlertException;
-
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
+import it.eng.decido.domain.Task;
+import it.eng.decido.service.TaskService;
+import it.eng.decido.web.rest.errors.BadRequestAlertException;
 
 /**
  * REST controller for managing {@link it.eng.decido.domain.Task}.
@@ -23,9 +30,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class TaskResource {
-
     private final Logger log = LoggerFactory.getLogger(TaskResource.class);
-
     private static final String ENTITY_NAME = "task";
 
     @Value("${jhipster.clientApp.name}")

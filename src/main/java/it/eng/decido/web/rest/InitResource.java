@@ -17,7 +17,7 @@ import it.eng.decido.repository.UserRepository;
 import it.eng.decido.security.AuthoritiesConstants;
 
 /**
- * REST controller for managing Initialization
+ * REST controller for managing Initialization of Users and Roles
  */
 @RestController
 @RequestMapping("/api")
@@ -35,9 +35,14 @@ public class InitResource {
         this.userRepository = userRepository;
     }
 
+    /**
+     * This operation creates on DB users and roles necessary to the system authentication.
+     * 
+     * @return Message with operation result
+     */
     @GetMapping("/initdbms")
-    public ResponseEntity<String> getInitDBMS() {
-        log.debug("REST request to get initialization");
+    public ResponseEntity<String> getInitUsersAndRoles() {
+        log.info("REST request to get Init Users and Roles");
        
         // @ChangeSet(order = "01", author = "initiator", id = "01-addAuthorities")
         Authority adminAuthority = new Authority();
@@ -105,7 +110,7 @@ public class InitResource {
         userUser.getAuthorities().add(userAuthority);
         userRepository.save(userUser);
         
-        return ResponseEntity.ok().body("Database succesfully created!");
+        return ResponseEntity.ok().body("The user(s) on DB has been succesfully created!");
     }
     
 

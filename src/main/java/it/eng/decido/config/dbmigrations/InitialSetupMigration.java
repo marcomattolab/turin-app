@@ -15,6 +15,7 @@ import it.eng.decido.security.AuthoritiesConstants;
 
 /**
  * Creates the initial database setup.
+ * TODO: Doesn't work due to Mongobee jar problems. Commented currently annotation @Bean in class DatabaseConfiguration
  */
 @ChangeLog(order = "001")
 public class InitialSetupMigration {

@@ -20,7 +20,6 @@ import org.springframework.stereotype.Component;
 @Component("userDetailsService")
 public class DomainUserDetailsService implements UserDetailsService {
     private final Logger log = LoggerFactory.getLogger(DomainUserDetailsService.class);
-
     private final UserRepository userRepository;
 
     public DomainUserDetailsService(UserRepository userRepository) {

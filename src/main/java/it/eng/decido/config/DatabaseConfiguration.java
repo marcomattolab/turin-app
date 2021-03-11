@@ -52,6 +52,7 @@ public class DatabaseConfiguration {
         return new MongoCustomConversions(converters);
     }
 
+    //TODO: Doesn't work due to Mongobee jar problems. Commented currently annotation @Bean
     //@Bean
     public Mongobee mongobee(MongoClient mongoClient, MongoTemplate mongoTemplate, MongoProperties mongoProperties) {
         log.debug("Configuring Mongobee");
