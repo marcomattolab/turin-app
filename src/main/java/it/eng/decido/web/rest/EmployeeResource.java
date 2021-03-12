@@ -2,10 +2,12 @@ package it.eng.decido.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Iterator;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
+import org.bson.Document;
+import org.bson.types.Binary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +96,47 @@ public class EmployeeResource {
     }
 
     /**
+     * See Mongo Encrypt: https://github.com/bolcom/spring-data-mongodb-encrypt
+     * See QUERY DSL: https://www.baeldung.com/queries-in-spring-data-mongodb
+     * 
+     * 
+     * {@code GET  /employees/search/:firstName} : get the "firstName" employee.
+     *
+     * @param name the name of the employee to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the employee, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/employees/search/{firstName}")
+    public ResponseEntity<Employee> getEmployeeByFirstName(@PathVariable String firstName) {
+    	log.debug("REST request to get Employee by firstName : {}", firstName);
+    	
+    	// BAD but works
+    	Employee result = null;
+    	List<Employee> all = employeeRepository.findAll();
+    	for (Employee employee : all) {
+    		boolean isEquals = employee.getFirstName().equals(firstName);
+    		if (isEquals) {
+    			result = employee;
+    			log.debug("Found the result is {} ", result.getFirstName());
+    		}
+		}
+    	
+		// BETTER but does not works
+        byte[] encrypted = cryptVault.encrypt(firstName.getBytes());
+        String encryptedField = new String(encrypted);
+        log.debug("REST request to get Employee by firstName (Encrypted) : {}", encryptedField);
+        
+        //byte[] x = Base64.getDecoder().decode(encryptedField);
+    	Optional<Employee> employee = employeeRepository.findByFirstName(encryptedField);
+    	//Optional<Employee> employee = employeeRepository.findByFirstName(encrypted);
+	
+    	 
+    	// BAD Custom find 
+    	// Optional<Employee> employee = findEmployeeCustom(firstName);
+    	
+		return ResponseUtil.wrapOrNotFound(employee);
+    }
+    
+    /**
      * {@code GET  /employees} : get all the employees.
      *
      * @param pageable the pagination information.
@@ -121,42 +164,6 @@ public class EmployeeResource {
     }
 
     /**
-     * See Mongo Encrypt: https://github.com/bolcom/spring-data-mongodb-encrypt
-     * See QUERY DSL: https://www.baeldung.com/queries-in-spring-data-mongodb
-     * 
-     * 
-     * {@code GET  /employees/search/:firstName} : get the "firstName" employee.
-     *
-     * @param name the name of the employee to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the employee, or with status {@code 404 (Not Found)}.
-     */
-    @GetMapping("/employees/search/{firstName}")
-    public ResponseEntity<Employee> getEmployeeByFirstName(@PathVariable String firstName) {
-    	log.debug("REST request to get Employee by firstName : {}", firstName);
-    	
-    	// BAD but works
-    	Employee result = null;
-    	List<Employee> all = employeeRepository.findAll();
-    	for (Employee employee : all) {
-    		boolean isEquals = employee.getFirstName().equals(firstName);
-    		if (isEquals) {
-    			result = employee;
-    			log.debug("Found the result is {} ", result.getFirstName());
-    		}
-		}
-    	
-    	// BETTER but doesnt works
-    	// encrypt
-        byte[] encrypted = cryptVault.encrypt(firstName.getBytes());
-        String encryptedField = new String(encrypted);
-        log.debug("REST request to get Employee by firstName (Encrypted) : {}", encryptedField);
-        
-        
-    	Optional<Employee> employee = employeeRepository.searchFirstName(encryptedField);
-    	return ResponseUtil.wrapOrNotFound(employee);
-    }
-
-    /**
      * {@code DELETE  /employees/:id} : delete the "id" employee.
      *
      * @param id the id of the employee to delete.
@@ -168,4 +175,17 @@ public class EmployeeResource {
         employeeRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id)).build();
     }
+    
+//    /**
+//     * Custom find Employee with CustomCipher (TODO Move into service)
+//     * 
+//     * @param firstName String
+//     */
+//	private Optional<Employee> findEmployeeCustom(String firstName) {
+//		String encryptedField = CustomCipher.encode(firstName);
+//		log.debug("REST request to get Employee by firstName (Encrypted) : {}", encryptedField);
+//		Optional<Employee> employee = employeeRepository.findByFirstName(encryptedField);
+//		return employee;
+//	}
+	
 }

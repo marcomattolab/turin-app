@@ -22,9 +22,8 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "The Employee entity.")
 @Document(collection = "employee")
 public class Employee implements Serializable {
-
     private static final long serialVersionUID = 1L;
-
+    
     @Id
     private String id;
 
@@ -39,7 +38,7 @@ public class Employee implements Serializable {
     private String lastName;
 
     @Field("email")
-    @Encrypted
+    //@Encrypted
     private String email;
 
     @Field("phone_number")
@@ -56,7 +55,7 @@ public class Employee implements Serializable {
 
     @ApiModelProperty(value = "The encrypted document attached to the bean.")
     @Field("document")
-    @Encrypted
+    //@Encrypted
     private byte[] document;
 
     @Field("document_content_type")
@@ -90,15 +89,18 @@ public class Employee implements Serializable {
 
     public String getFirstName() {
         return firstName;
+        //return CustomCipher.decode(firstName);
     }
 
     public Employee firstName(String firstName) {
         this.firstName = firstName;
+    	//this.firstName = CustomCipher.encode(firstName);
         return this;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    	//this.firstName = CustomCipher.encode(firstName);
     }
 
     public String getLastName() {

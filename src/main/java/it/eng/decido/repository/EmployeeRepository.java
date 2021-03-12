@@ -17,9 +17,12 @@ public interface EmployeeRepository extends MongoRepository<Employee, String> {
 	
 	// See https://www.devglan.com/spring-boot/spring-data-mongodb-queries
 	// See https://github.com/bolcom/spring-data-mongodb-encrypt
+	// See https://www.programcreek.com/java-api-examples/?api=org.bson.types.Binary
 	
-	@Query("{'first_name' : ?0}")
-	Optional<Employee> searchFirstName(String firstName);
+	//@Query("{'first_name' : ?0}")
+	//Optional<Employee> searchFirstName(String firstName);
 	
 	Optional<Employee> findByFirstName(String firstName);
+	//Optional<Employee> findByFirstName(byte[] firstName);
+	
 }

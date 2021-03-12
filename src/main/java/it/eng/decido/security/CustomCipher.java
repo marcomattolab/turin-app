@@ -1,6 +1,6 @@
 package it.eng.decido.security;
 
-public class CaesarCipher {
+public class CustomCipher {
 	private static final int DEFAULT_SHIFT = 3;
 
 	/**
@@ -61,10 +61,10 @@ public class CaesarCipher {
 		String originalText = "Danny JHONSON	Mànèlidà PeoPPle \\\\n\\\\l MIMMO ! ? !*** -+%£1234567890";
 		System.out.println("originalText => "+originalText);
 		
-		String encripted = CaesarCipher.encode(originalText);
+		String encripted = CustomCipher.encode(originalText);
 		System.out.println("encripted => "+encripted);
 		
-		String decripted = CaesarCipher.decode(encripted);
+		String decripted = CustomCipher.decode(encripted);
 		System.out.println("decripted => "+decripted);
 		System.out.println("---------------------------------");
 		if (decripted.equals(originalText)) {
