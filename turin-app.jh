@@ -1,0 +1,56 @@
+
+
+enum Language {
+    ENGLISH, SPANISH, ITALIAN
+}
+
+enum Category {
+    COCREATION, RISKMANAGEMENT, PERSONALDATA, OTHER
+}
+
+/**
+ * The Citizen entity.
+ */
+entity Citizen {
+	firstName String required,
+	lastName String required,
+	email String required,
+	phoneNumber String,
+	dateOfBirth Date,
+	fiscalCode String,
+	document Blob,
+	country String,
+	region String,
+	province String,
+	city String,
+	postalCode String,
+	streetAddress String,	
+	createdDate Instant,
+	createdBy String
+}
+
+/**
+ * The Documents entity.
+ */
+entity Documents {
+	language Language required,
+	category Category required,
+	name String,
+	description String,
+	content Blob required,
+	path String,
+	deleted Boolean,
+	createdDate Instant,
+	createdBy String
+}
+
+
+relationship OneToMany {
+	Citizen to Documents{person}
+}
+
+
+paginate * with pagination
+dto * with mapstruct
+filter *
+service all with serviceImpl
