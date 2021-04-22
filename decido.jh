@@ -1,0 +1,162 @@
+
+/**   jhipster import-jdl ./decido.jh --force  **/
+ 
+ 
+
+enum Status {
+    DRAFT, READY, RUNNING, ARCHIVED
+}
+
+enum Category {
+    COCREATION, RISKMANAGEMENT, ADMINISTRATIVE, SAFETY, ACADEMIC, RESEARCH, PUBLIC, PRIVATE
+}
+
+enum PolicyType {
+    BPMN, TEXT, FLOWCHART
+}
+
+enum DataComponentType {
+    HARVEST, ANALYSIS, ML, AI, LEGACY, EGI, SERVICE, OTHER
+}
+
+enum DisasterCategory {
+    FLOODING, BLACKOUT, FORESTFIRE, HEARTHQUAKE, STORM, OTHER
+}
+
+enum DisasterCategory {
+    FLOODING, BLACKOUT, FORESTFIRE, HEARTHQUAKE, STORM, OTHER
+}
+
+enum Severity {
+    LOW, MEDIUM, HIGHT
+}
+
+    
+
+
+/**
+ * The Policy entity.
+ */
+entity Policy {
+	code String required,
+    name String,
+	description String,
+	category Category,
+    status Status,
+    deleted Boolean,
+    type PolicyType,
+	content Blob,
+    note String
+}
+
+/**
+ * The Document entity.
+ */
+entity Document {
+	name String required,
+	description String,
+	content Blob required,
+	path String,
+	deleted Boolean
+}
+
+
+/**
+ * The KPI entity.
+ */
+entity KPI {
+	code String required,
+    name String required,
+	description String required,
+    type String,
+    formula Blob,
+	value Blob,
+    enabled Boolean
+}
+
+
+/**
+ * The DataComponent entity.
+ */
+entity DataComponent {
+	code String required,
+    name String,
+	description String,
+    type DataComponentType,
+    providerurl String,
+    value Blob,
+    enabled Boolean
+}
+
+/**
+ * The Pilot entity.
+ */
+entity Pilot {
+	code String required,
+    name String required,
+	description String,
+    latitude String,
+    longitude String,
+	note Blob,
+    enabled Boolean
+}
+
+
+/**
+ * The Disaster entity.
+ */
+entity Disaster {
+	code String required,
+    name String,
+	description String,
+	category DisasterCategory required,
+    severity Severity,
+    startDate Instant,
+    endDate Instant,
+    note String
+}
+
+/**
+ * The DisasterMessage entity.
+ */
+entity DisasterMessage {
+	code String required,
+	name String,
+	disasterRef String,
+	description String,
+    severity Severity,
+    messageDate Instant,
+    messageAuthor String,
+    messageNote String
+}
+
+
+
+relationship OneToMany {
+   Policy{documents} to Document{policy(code)}
+}
+
+relationship OneToMany {
+   Pilot{policy} to Policy{pilot(code)}
+}
+
+
+relationship ManyToMany {
+  Policy{datacomponent} to DataComponent{policy},
+  KPI{components} to DataComponent{kpi}
+}
+
+relationship ManyToOne {
+	KPI{policy(code) required} to Policy
+}
+
+relationship ManyToOne {
+	Disaster{place(code) required} to Pilot
+}
+
+
+paginate * with pagination
+dto * with mapstruct
+filter *
+service all with serviceImpl
+
